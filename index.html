@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mona Commission</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Badges ปุ่มกลมด้านบน -->
+  <div id="top-badges">
+    <button id="btn-home" class="badge" title="Home">🏠</button>
+    <button id="btn-commission" class="badge" title="Commission">💰</button>
+    <button id="btn-queue" class="badge" title="Queue">📋</button>
+    <button id="btn-gallery" class="badge" title="Gallery">🖼️</button>
+    <button id="btn-profile" class="badge" title="Profile">👤</button>
+    <button id="btn-admin" class="badge" style="display:none;" title="Admin">⚙️</button>
+    <button id="btn-logout" class="badge" title="Login/Logout">🔑</button>
+  </div>
+
+  <!-- Status Bar -->
+  <div id="status-bar">
+    <span id="queue-check-btn" class="btn-status">📌 เช็คคิวงาน</span>
+    <span id="login-status">ยังไม่ได้เข้าสู่ระบบ</span>
+  </div>
+
+  <!-- เนื้อหาหลัก -->
+  <main id="app"></main>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, collection, query, where, orderBy, onSnapshot, getDocs, addDoc, updateDoc, deleteDoc, serverTimestamp, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    // ===== ใส่ Config ของคุณตรงนี้ =====
+    const firebaseConfig = {
+      apiKey: "AIza...",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "...",
+      appId: "..."
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // ทำให้ใช้จาก script.js ได้
+    window.fb = {
+      auth, db, storage,
+      GoogleAuthProvider, signInWithPopup, signOut,
+      onAuthStateChanged,
+      doc, getDoc, setDoc,
+      collection, query, where, orderBy, onSnapshot, getDocs,
+      addDoc, updateDoc, deleteDoc, serverTimestamp, writeBatch,
+      ref, uploadBytesResumable, getDownloadURL, deleteObject
+    };
+  </script>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>
